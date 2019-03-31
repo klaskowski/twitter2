@@ -12,7 +12,7 @@
 <nav class="navbar navbar-dark bg-dark">
     <p>Hello <%=currentUser.getUsername()%></p>
     <a href="details?id=<%=currentUser.getId()%>">
-        <img alt="avatar" src="">
+        <img alt="avatar" src="avatars/<%=currentUser.getId()%>.jpg">
     </a>
     <button class="btn btn-primary" id="add-tweet-button">+ Add tweet</button>
     <a href="/twitter2/logout" class="btn btn-secondary">Log out</a>

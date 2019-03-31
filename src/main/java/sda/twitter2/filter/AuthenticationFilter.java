@@ -2,6 +2,7 @@ package sda.twitter2.filter;
 
 import sda.twitter2.services.UserService;
 
+import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
@@ -10,22 +11,32 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 @WebFilter(urlPatterns = {"/"})
-public class AuthenticationFilter extends HttpServlet {
+public class AuthenticationFilter implements Filter {
 
-//    @Override
-//    public void doGet(HttpServletRequest request,
-//                       HttpServletResponse response) throws IOException {
-//
-//        String userId = null;
-//        for(Cookie c : request.getCookies()){
-//            if(c.getName().equals("userId")){
-//                userId = c.getValue();
-//            }
-//        }
-//        if(userId == null){
-//            response.sendRedirect("register.jsp");
-//        } else {
-//            request.setAttribute("user", UserService.INSTANCE.findUser(Integer.parseInt(userId)));
-//        }
-//    }
+    public void init(FilterConfig fcg) {
+        System.out.println("fcg = [" + fcg + "]");
+    }
+
+    public void destroy(){
+
+    }
+
+    public void doFilter(ServletRequest request,
+                         ServletResponse response, FilterChain chain) throws IOException, ServletException {
+        System.out.println("request = [" + request + "], response = [" + response + "], chain = [" + chain + "]");
+        HttpServletRequest servletRequest = (HttpServletRequest) request;
+        String userId = null;
+        for(Cookie c : servletRequest.getCookies()){
+            if(c.getName().equals("userId")){
+                userId = c.getValue();
+            }
+        }
+        if(userId == null){
+            System.out.println("request = [" + request + "], response = [" + response + "], chain = [" + chain + "]");
+            request.getRequestDispatcher("register.jsp").forward(request,response);
+        } else {
+            request.setAttribute("user", UserService.INSTANCE.findUser(Integer.parseInt(userId)));
+        }
+        chain.doFilter(request, response);
+    }
 }

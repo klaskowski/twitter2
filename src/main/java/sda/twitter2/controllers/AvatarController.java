@@ -7,6 +7,7 @@ import org.apache.tomcat.util.http.fileupload.servlet.ServletFileUpload;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +25,15 @@ public class AvatarController extends HttpServlet {
     private static final int MAX_REQUEST_SIZE = 1024 * 1024 * 100;
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String userId = null;
+        if(request.getCookies() != null)
+        for(Cookie c : request.getCookies()){
+            if(c.getName().equals("userId")){
+                userId = c.getValue();
+            }
+        }
+
         DiskFileItemFactory factory = new DiskFileItemFactory();
 
         // Sets the size threshold beyond which files are written directly to
@@ -36,8 +46,7 @@ public class AvatarController extends HttpServlet {
         factory.setRepository(new File(System.getProperty("java.io.tmpdir")));
 
         // constructs the folder where uploaded file will be stored
-        String uploadFolder = getServletContext().getRealPath("")
-                + File.separator + DATA_DIRECTORY;
+        String uploadFolder = getServletContext().getRealPath("") + DATA_DIRECTORY;
 
         ServletFileUpload upload = new ServletFileUpload(factory);
 
@@ -47,22 +56,22 @@ public class AvatarController extends HttpServlet {
         try {
             // Parse the request
             Map<String,List<FileItem>> items = upload.parseParameterMap(request);
-            Iterator iter = items.entrySet().iterator();
+            Iterator iter = items.values().iterator().next().iterator();
             while (iter.hasNext()) {
                 FileItem item = (FileItem) iter.next();
 
                 if (!item.isFormField()) {
-                    String fileName = new File(item.getName()).getName();
-                    String filePath = uploadFolder + File.separator + fileName;
+                    String filePath = uploadFolder + File.separator + userId + ".jpg";
                     File uploadedFile = new File(filePath);
                     System.out.println(filePath);
+                    System.out.println(uploadedFile.createNewFile());
+
                     // saves the file to upload directory
                     item.write(uploadedFile);
                 }
             }
 
-            getServletContext().getRequestDispatcher("/main.jsp").forward(
-                    request, response);
+            response.sendRedirect("/twitter2/");
 
         } catch (FileUploadException ex) {
             throw new ServletException(ex);
