@@ -15,6 +15,7 @@ import java.io.IOException;
 public class MainPageController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String userId = null;
+        if(request.getCookies() != null)
         for(Cookie c : request.getCookies()){
             if(c.getName().equals("userId")){
                 userId = c.getValue();

@@ -33,12 +33,10 @@
         fetch("tweet",
             {
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 method: "POST",
-                body: {
-                    content: $("#new-tweet-content").val
-                }
+                body: "content=" + $("#new-tweet-content").val()
             })
         .then(function (result) {
             //console.log(result)
