@@ -14,6 +14,7 @@ COPY --from=MAVEN_TOOL_CHAIN /tmp/target/twitter2 $CATALINA_HOME/webapps/twitter
 COPY tomcat-config/tomcat-users.xml $CATALINA_HOME/conf/tomcat-users.xml
 COPY tomcat-config/context.xml $CATALINA_HOME/webapps/manager/META-INF/context.xml
 
+
 EXPOSE 8080
 CMD ["catalina.sh", "run"]
 
