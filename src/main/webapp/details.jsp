@@ -5,10 +5,23 @@
     <title>Details</title>
 </head>
 <%
-    User currentUser = (User)request.getAttribute("selectedUser");
+    User selectedUser = (User)request.getAttribute("selectedUser");
+    String currentUserId = null;
+    for(Cookie c : request.getCookies()){
+        if(c.getName().equals("userId")){
+            currentUserId = c.getValue();
+        }
+    }
 %>
 <body>
-<p><%=currentUser.getUsername()%></p>
-<p><%=currentUser.getTweets().size()%></p>
+<p><%=selectedUser.getUsername()%></p>
+<p><%=selectedUser.getTweets().size()%></p>
+<% if(Integer.parseInt(currentUserId) == selectedUser.getId()){%>
+<form method="post" action="avatar" enctype="multipart/form-data">
+    Wybierz avatar:
+    <input type="file" name="dataFile" id="fileChooser"/>
+    <input type="submit" value="Wyślij" />
+</form>
+<%}%>
 </body>
 </html>
