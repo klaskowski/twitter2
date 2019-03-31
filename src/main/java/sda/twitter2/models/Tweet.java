@@ -9,6 +9,7 @@ public class Tweet {
     private int id;
     private String content;
     private Date date;
+    private User author;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +35,15 @@ public class Tweet {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
     }
 }
