@@ -29,7 +29,7 @@ public class RegisterControllerTest {
         // TODO Prepare GIVEN step - mock the content of request object
         //...
         // WHEN
-        //registerController.doPost(request, response);
+        // registerController.doPost(request, response);
         //TODO Prepare THEN step - verify response object content and whether certain redirects have been called
     }
 }

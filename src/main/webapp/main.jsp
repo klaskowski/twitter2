@@ -11,7 +11,7 @@
 %>
 <nav class="navbar navbar-dark bg-dark">
     <p>Hello <%=currentUser.getUsername()%></p>
-    <a href="details?user=<%=currentUser.getId()%>">
+    <a href="details?id=<%=currentUser.getId()%>">
         <img alt="avatar" src="">
     </a>
     <button class="btn btn-primary">+ Add tweet</button>

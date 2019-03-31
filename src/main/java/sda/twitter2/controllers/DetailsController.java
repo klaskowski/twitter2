@@ -1,5 +1,8 @@
 package sda.twitter2.controllers;
 
+import sda.twitter2.models.User;
+import sda.twitter2.services.UserService;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
@@ -12,8 +15,9 @@ import java.io.IOException;
         urlPatterns = "/details")
 public class DetailsController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        request.getParameter("id");
-        // TODO ...
+        User selectedUser = UserService.INSTANCE.findUser(Integer.parseInt(request.getParameter("id")));
+        request.setAttribute("selectedUser", selectedUser);
+
         request.getRequestDispatcher("details.jsp").forward(request, response);
     }
 }

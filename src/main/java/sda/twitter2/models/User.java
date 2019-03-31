@@ -1,6 +1,7 @@
 package sda.twitter2.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "user")
@@ -9,6 +10,7 @@ public class User {
     private int id;
     private String username;
     private String password;
+    private List<Tweet> tweets;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -34,5 +36,15 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
+    public List<Tweet> getTweets() {
+        return tweets;
+    }
+
+    public void setTweets(List<Tweet> tweets) {
+        this.tweets = tweets;
     }
 }

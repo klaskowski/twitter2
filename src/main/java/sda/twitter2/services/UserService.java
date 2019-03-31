@@ -12,7 +12,8 @@ public enum UserService {
     private EntityManager em;
 
     private UserService(){
-        em = Persistence.createEntityManagerFactory("persistence").createEntityManager();
+        em = Persistence.createEntityManagerFactory("persistence")
+                .createEntityManager();
     }
 
     public void registerUser(User user){
