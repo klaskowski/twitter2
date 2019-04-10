@@ -28,4 +28,14 @@ public enum UserService {
         em.getTransaction().commit();
         return user;
     }
+
+    public User findUser(String username, String password){
+        em.getTransaction().begin();
+        User user = em.createQuery("from User u where u.username=:username and u.password=:password", User.class)
+                .setParameter("username", username)
+                .setParameter("password", password)
+                .getSingleResult();
+        em.getTransaction().commit();
+        return user;
+    }
 }

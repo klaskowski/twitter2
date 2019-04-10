@@ -14,18 +14,7 @@ import java.io.IOException;
         value = "/")
 public class MainPageController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String userId = null;
-        if(request.getCookies() != null)
-        for(Cookie c : request.getCookies()){
-            if(c.getName().equals("userId")){
-                userId = c.getValue();
-            }
-        }
-        if(userId == null){
-            response.sendRedirect("register.jsp");
-        } else {
-            request.setAttribute("user", UserService.INSTANCE.findUser(Integer.parseInt(userId)));
-            request.getRequestDispatcher("main.jsp").forward(request, response);
-        }
+        // request.setAttribute("user", UserService.INSTANCE.findUser(Integer.parseInt(userId)));
+        request.getRequestDispatcher("main.jsp").forward(request, response);
     }
 }
