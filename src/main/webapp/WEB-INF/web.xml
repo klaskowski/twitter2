@@ -6,6 +6,10 @@
   <display-name>Archetype Created Web Application</display-name>
   <servlet-mapping>
     <servlet-name>default</servlet-name>
+    <url-pattern>/static/*</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>default</servlet-name>
     <url-pattern>/avatars/*</url-pattern>
   </servlet-mapping>
 </web-app>

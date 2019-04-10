@@ -3,20 +3,16 @@
 <html>
 <head>
     <title>Details</title>
+    <link rel="stylesheet" href="static/bootstrap.css">
 </head>
 <%
     User selectedUser = (User)request.getAttribute("selectedUser");
-    String currentUserId = null;
-    for(Cookie c : request.getCookies()){
-        if(c.getName().equals("userId")){
-            currentUserId = c.getValue();
-        }
-    }
+    User currentUser = (User)request.getSession().getAttribute("user");
 %>
 <body>
 <p><%=selectedUser.getUsername()%></p>
 <p><%=selectedUser.getTweets().size()%></p>
-<% if(Integer.parseInt(currentUserId) == selectedUser.getId()){%>
+<% if(currentUser.getId() == selectedUser.getId()){%>
 <form method="post" action="avatar" enctype="multipart/form-data">
     Wybierz avatar:
     <input type="file" name="dataFile" id="fileChooser"/>

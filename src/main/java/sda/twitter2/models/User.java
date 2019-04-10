@@ -1,6 +1,7 @@
 package sda.twitter2.models;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -10,7 +11,7 @@ public class User {
     private int id;
     private String username;
     private String password;
-    private List<Tweet> tweets;
+    private List<Tweet> tweets = new ArrayList<>();
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

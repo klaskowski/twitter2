@@ -15,9 +15,7 @@ import java.io.IOException;
         urlPatterns = "/details")
 public class DetailsController extends HttpServlet {
     public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        User selectedUser = UserService.INSTANCE.findUser(Integer.parseInt(request.getParameter("id")));
-        request.setAttribute("selectedUser", selectedUser);
-
+        request.setAttribute("selectedUser", UserService.INSTANCE.findUser(Integer.parseInt(request.getParameter("id"))));
         request.getRequestDispatcher("details.jsp").forward(request, response);
     }
 }

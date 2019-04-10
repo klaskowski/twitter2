@@ -63,8 +63,7 @@ public class AvatarController extends HttpServlet {
                 if (!item.isFormField()) {
                     String filePath = uploadFolder + File.separator + userId + ".jpg";
                     File uploadedFile = new File(filePath);
-                    System.out.println(filePath);
-                    System.out.println(uploadedFile.createNewFile());
+                    uploadedFile.createNewFile();
 
                     // saves the file to upload directory
                     item.write(uploadedFile);
